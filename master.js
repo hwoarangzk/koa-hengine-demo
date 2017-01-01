@@ -41,13 +41,9 @@ n.on('message', function(r) {
 	queue[id].resolve(html);
 });
 
-n.on('error', function() {
-	console.log('child process error occured22222222222222222222');
-});
-
 app.on('error', function() {
 	console.log('app error occured........');
-	n.disconnect();
+	process.exit(1);
 });
 
 app.use(function *() {
