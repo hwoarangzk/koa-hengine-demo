@@ -11,9 +11,9 @@ process.on('message', function(msg) {
 	//这里故意写一个死循环
 	//来测试触发父进程里promise的reject
 	//正常流程里是不会有这个死循环的
-	// while (1) {
+	while (1) {
 
-	// }
+	}
 
 	process.send({
 		id: id,

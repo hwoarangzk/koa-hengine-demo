@@ -39,6 +39,16 @@ var render = function(id, data) {
 	return p;
 }
 
+process.on('SIGTERM', function() {
+	console.log('-----------------SIGTERM------------------');
+	console.log(arguments);
+});
+
+process.on('uncaughtException', function() {
+	console.log('-----------------uncaughtException------------------');
+	console.log(arguments);
+});
+
 n.on('message', function(r) {
 	var id = r.id,
 		html = r.html;
