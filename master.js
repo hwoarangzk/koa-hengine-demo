@@ -4,6 +4,9 @@ var app = koa();
 
 var fork = require('child_process').fork;
 var n = fork('./child.js', [], {
+	//这里加这个参数是因为在vscode里调试的时候
+	//子进程要用一个不同的port
+	//否则vscode会报错
 	execArgv: ['--debug=5555']
 });
 
@@ -28,6 +31,7 @@ var render = function(id, data) {
 		data: data
 	});
 
+	//假设1s后没反应，则认为子进程渲染死循环了
 	setTimeout(function() {
 		p.reject(new Error('timeout error'));
 	}, 1000);
@@ -42,7 +46,7 @@ n.on('message', function(r) {
 });
 
 app.on('error', function() {
-	console.log('app error occured........');
+	console.log('app error occured');
 	process.exit(1);
 });
 
