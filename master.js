@@ -41,13 +41,18 @@ n.on('message', function(r) {
 	queue[id].resolve(html);
 });
 
-app.use(function *() {
-
-	var id = Math.random().toString().substring(2);
-
-	this.body = yield render(id, {name: 'vergil1'});
-	
+n.on('error', function() {
+	console.log('child process error occured22222222222222222222');
 });
 
+app.on('error', function() {
+	console.log('app error occured........');
+	n.disconnect();
+});
+
+app.use(function *() {
+	var id = Math.random().toString().substring(2);
+	this.body = yield render(id, {name: 'vergil1'});
+});
 
 app.listen(3000);
